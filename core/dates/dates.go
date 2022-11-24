@@ -26,33 +26,33 @@ const (
 	ChineseDateTimePattern = "2006年01月02日 15时04分05秒" // 中文日期时间格式
 )
 
-// 获取当前时间，格式：yyyy-MM-dd HH:mm:ss
+// Now 获取当前时间，格式：yyyy-MM-dd HH:mm:ss
 func Now() string {
 	t := time.Now()
 	return t.Format(DateTimePattern)
 }
 
-// 格式化日期，格式：yyyy-MM-dd
+// FormatDate 格式化日期，格式：yyyy-MM-dd
 func FormatDate(t time.Time, format ...string) string {
 	return t.Format(DatePattern)
 }
 
-// 格式化时间，格式：HH:mm:ss
+// FormatTime 格式化时间，格式：HH:mm:ss
 func FormatTime(t time.Time) string {
 	return t.Format(TimePattern)
 }
 
-// 时间格式化，格式：yyyy-MM-dd HH:mm:ss
+// Format 时间格式化，格式：yyyy-MM-dd HH:mm:ss
 func Format(t time.Time) string {
 	return t.Format(DateTimePattern)
 }
 
-// 字符串转换为时间戳，当不传入时区时，默认使用当前时区（UTC）
+// ParseTime 字符串转换为时间戳，当不传入时区时，默认使用当前时区（UTC）
 func ParseTime(value string) (time.Time, error) {
 	return time.ParseInLocation(DateTimePattern, value, time.Local)
 }
 
-// 分割时间字符串，返回日期和时间
+// SplitTime 分割时间字符串，返回日期和时间
 // 参数：仅限修改日期分隔符，如果不修改，则使用默认分隔符，时间分隔符默认为：":"
 // value：时间字符串
 // format：自定义格式：yyyy-MM-dd HH:mm:ss | 2022年1月1日 12:00:01
@@ -107,7 +107,7 @@ func SplitTime(value, format string) string {
 	return replaceDateTime
 }
 
-// 匹配字符串的日期格式，返回日期格式
+// MatchDate 匹配字符串的日期格式，返回日期格式
 func MatchDate(format string) string {
 	if len(format) == 0 {
 		return ""

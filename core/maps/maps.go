@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-// 提取map的key放到切片上排序，
+// SortMap 提取map的key放到切片上排序，
 func SortMap(m map[string]any) reflect.Value {
 	var keys []string
 	for k := range m {
@@ -37,7 +37,7 @@ func SortMap(m map[string]any) reflect.Value {
 	return refNewMap
 }
 
-// int的Key转换为string,再排序，
+// SortMapInt int的Key转换为string,再排序，
 func SortMapInt(m map[int]any) reflect.Value {
 	// int转换为any
 	var anyMap = make(map[string]any)
@@ -47,7 +47,7 @@ func SortMapInt(m map[int]any) reflect.Value {
 	return SortMap(anyMap)
 }
 
-// float64转换为string，再排序，
+// SortMapFloat64 float64转换为string，再排序，
 func SortMapFloat64(m map[float64]any) reflect.Value {
 	// float64转换为any
 	var anyMap = make(map[string]any)

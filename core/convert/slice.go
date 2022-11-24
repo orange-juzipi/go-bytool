@@ -11,6 +11,7 @@ import (
 	"reflect"
 )
 
+// SliceToMap 切片转map
 func SliceToMap(slice interface{}) any {
 	reflectSlice := reflect.ValueOf(slice)
 	log.Println(reflectSlice.Kind())
@@ -27,6 +28,7 @@ func SliceToMap(slice interface{}) any {
 	log.Println(sliceValue)
 
 	refMap := make(map[interface{}]interface{}, reflectSlice.Len()+1)
+
 	if reflectSlice.Kind() == reflect.Slice {
 		for i := 0; i < reflectSlice.Len(); i++ {
 			// refMap = append(refMap, reflectSlice.Index(i))

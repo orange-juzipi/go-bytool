@@ -2,7 +2,8 @@ package dates_test
 
 import (
 	"fmt"
-	"go-bytool/core/dates"
+	"github.com/OrangePeel-2019/go-bytool/core/dates"
+
 	"testing"
 	"time"
 )

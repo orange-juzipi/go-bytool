@@ -39,7 +39,7 @@ go-bytool是一个简便的工具库，它能让你在Go里降低学习API的成
 ├── core                // 核心包
 │   ├── convs           // 类型转换工具包
 │   ├── dates           // 日期时间工具包
-│   └── desensitization // 信息脱敏工具包
+│   ├── desensitization // 信息脱敏工具包
 │   └── maps            // map工具包
 ├── ...
 ...

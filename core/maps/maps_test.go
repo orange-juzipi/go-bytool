@@ -1,23 +1,18 @@
 package maps_test
 
 import (
-	"go-bytool/core/maps"
+	"fmt"
+	"github.com/OrangePeel-2019/go-bytool/core/maps"
 	"testing"
 )
 
-func TestA(t *testing.T) {
-	// map
+func TestSortMap(t *testing.T) {
 	m := make(map[string]interface{})
 	m["c"] = 3
 	m["a"] = 1
 	m["b"] = 2
-	// t.Log(m)
+
 	m2 := maps.SortMap(m)
 	t.Log(m2)
-	// for k, v := range m {
-	// 	log.Println(k, "----", v)
-	// }
-
-	// v := convs.SliceToMap(m)
-	// t.Log("----------", v)
+	fmt.Printf("%T----%v\n", m2, m2)
 }
