@@ -10,12 +10,12 @@ import (
 
 func TestXxx(t *testing.T) {
 	fmt.Printf("dates.Now(): %v\n", dates.Now())
-	fmt.Printf("dates.Format(time.Now(), \"2006-01-02 15:04:05\"): %v\n", dates.Format(time.Now()))
+	fmt.Printf("dates.Format(time.Now(), \"2006-01-02 15:04:05\"): %v\n", dates.FormatDateTime(time.Now()))
 
 	fmt.Printf("dates.FormatDate(time.Now()): %v\n", dates.FormatDate(time.Now()))
 	fmt.Printf("dates.FormatTime(time.Now()): %v\n", dates.FormatTime(time.Now()))
 
-	t2, err := dates.ParseTime(dates.Format(time.Now()))
+	t2, err := dates.ParseTime(dates.FormatDateTime(time.Now()))
 	if err != nil {
 		t.Error(err)
 	}

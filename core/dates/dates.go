@@ -32,6 +32,11 @@ func Now() string {
 	return t.Format(DateTimePattern)
 }
 
+// Format 格式化日期，格式：自定义，符合日期即可
+func Format(t time.Time, format string) string {
+	return t.Format(format)
+}
+
 // FormatDate 格式化日期，格式：yyyy-MM-dd
 func FormatDate(t time.Time, format ...string) string {
 	return t.Format(DatePattern)
@@ -42,14 +47,19 @@ func FormatTime(t time.Time) string {
 	return t.Format(TimePattern)
 }
 
-// Format 时间格式化，格式：yyyy-MM-dd HH:mm:ss
-func Format(t time.Time) string {
+// FormatDateTime 时间格式化，格式：yyyy-MM-dd HH:mm:ss
+func FormatDateTime(t time.Time) string {
 	return t.Format(DateTimePattern)
 }
 
 // ParseTime 字符串转换为时间戳，当不传入时区时，默认使用当前时区（UTC）
 func ParseTime(value string) (time.Time, error) {
-	return time.ParseInLocation(DateTimePattern, value, time.Local)
+	return time.ParseInLocation(TimePattern, value, time.Local)
+}
+
+// ParseDate 解析 yyyy-MM-dd HH:mm:ss
+func ParseDate(value string) (time.Time, error) {
+	return time.ParseInLocation(DatePattern, value, time.Local)
 }
 
 // SplitTime 分割时间字符串，返回日期和时间
