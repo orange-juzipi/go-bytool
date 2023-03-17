@@ -6,13 +6,36 @@ import (
 	"testing"
 )
 
+var (
+	idCard = "321083197811252119"
+)
+
+// 获取年龄
 func TestGetIdCardByAge(t *testing.T) {
-	idCard := "321083197811252119"
-	err, i := utils.GetIdCardByAge(idCard)
+	i, err := utils.GetIdCardByAge(idCard)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(i)
+	t.Log(i, "岁")
+}
 
+// 获取生日
+func TestGetIdCardBirthday(t *testing.T) {
+	birthday, err := utils.GetIdCardBirthday(idCard)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	t.Log(birthday)
+}
+
+// 获取省份
+func TestGetIdCardProvince(t *testing.T) {
+	birthday, err := utils.GetIdCardProvince(idCard)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	t.Log(birthday)
 }

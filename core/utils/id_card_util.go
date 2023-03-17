@@ -10,22 +10,24 @@ package utils
 import (
 	"errors"
 	"github.com/OrangePeel-2019/go-bytool/core/dates"
+	"github.com/OrangePeel-2019/go-bytool/pkg"
+	"strconv"
 	"time"
 )
 
 // GetIdCardByAge 获取身份证的年龄
-func GetIdCardByAge(idCard string) (error, int) {
+func GetIdCardByAge(idCard string) (int, error) {
 	if err := idCardLen(idCard); err != nil {
-		return err, 0
+		return 0, err
 	}
 
-	idCardYear := idCard[6:10]
-	idCardMonth := idCard[10:12]
-	idCardDay := idCard[12:14]
-
-	birthdayTime, err := dates.ParseDate(idCardYear + "-" + idCardMonth + "-" + idCardDay)
+	year, _ := strconv.Atoi(idCard[6:10])
+	month, _ := strconv.Atoi(idCard[10:12])
+	day, _ := strconv.Atoi(idCard[12:14])
+	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
+	birthdayTime, err := dates.Parse(date.Format(time.DateTime))
 	if err != nil {
-		return err, 0
+		return 0, err
 	}
 
 	if birthdayTime.Before(time.Now()) {
@@ -34,10 +36,10 @@ func GetIdCardByAge(idCard string) (error, int) {
 		if now.Month() < birthdayTime.Month() || now.Day() < birthdayTime.Day() {
 			age -= 1
 		}
-		return nil, age
+		return age, nil
 	}
 
-	return nil, 0
+	return 0, err
 }
 
 func idCardLen(idCard string) error {
@@ -46,6 +48,21 @@ func idCardLen(idCard string) error {
 	}
 	return nil
 }
-func getBirthday(idCard string) string {
-	return idCard[6:14]
+func GetIdCardBirthday(idCard string) (string, error) {
+	if err := idCardLen(idCard); err != nil {
+		return "", err
+	}
+	return idCard[10:12] + "月" + idCard[12:14] + "日", nil
+}
+
+// GetIdCardProvince 获取省份
+func GetIdCardProvince(idCard string) (string, error) {
+	if err := idCardLen(idCard); err != nil {
+		return "", err
+	}
+	provinceCode := idCard[0:2]
+	code, _ := strconv.Atoi(provinceCode)
+	province := pkg.GetProvince(uint(code))
+
+	return province, nil
 }

@@ -7,29 +7,17 @@ version: 1.0
 package dates
 
 import (
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 )
 
-const (
-	DateTimePattern        = "2006-01-02 15:04:05"   // 标准日期时间格式
-	DatePattern            = "2006-01-02"            // 标准日期格式
-	TimePattern            = "15:04:05"              // 标准时间格式
-	YearPattern            = "2006"                  // 年格式
-	YearMonthPattern       = "2006-01"               // 年月格式
-	MonthPattern           = "01"                    // 月格式
-	DayPattern             = "02"                    // 日格式
-	ChineseDatePattern     = "2006年01月02日"           // 中文日期格式
-	ChineseTimePattern     = "15时04分05秒"             // 中文时间格式
-	ChineseDateTimePattern = "2006年01月02日 15时04分05秒" // 中文日期时间格式
-)
-
 // Now 获取当前时间，格式：yyyy-MM-dd HH:mm:ss
 func Now() string {
 	t := time.Now()
-	return t.Format(DateTimePattern)
+	return t.Format(time.DateTime)
 }
 
 // Format 格式化日期，格式：自定义，符合日期即可
@@ -39,33 +27,48 @@ func Format(t time.Time, format string) string {
 
 // FormatDate 格式化日期，格式：yyyy-MM-dd
 func FormatDate(t time.Time, format ...string) string {
-	return t.Format(DatePattern)
+	return t.Format(time.DateOnly)
 }
 
 // FormatTime 格式化时间，格式：HH:mm:ss
 func FormatTime(t time.Time) string {
-	return t.Format(TimePattern)
+	return t.Format(time.TimeOnly)
 }
 
 // FormatDateTime 时间格式化，格式：yyyy-MM-dd HH:mm:ss
 func FormatDateTime(t time.Time) string {
-	return t.Format(DateTimePattern)
+	return t.Format(time.DateTime)
 }
 
-// ParseTime 字符串转换为时间戳，当不传入时区时，默认使用当前时区（UTC）
-func ParseTime(value string) (time.Time, error) {
-	return time.ParseInLocation(TimePattern, value, time.Local)
+// Parse 字符串转换为Time
+func Parse(value string) (time.Time, error) {
+	return time.ParseInLocation(time.DateTime, value, time.Local)
 }
 
-// ParseDate 解析 yyyy-MM-dd HH:mm:ss
-func ParseDate(value string) (time.Time, error) {
-	return time.ParseInLocation(DatePattern, value, time.Local)
+// ParseTime 字符串转换为时间戳
+func ParseTime(value string) (int64, error) {
+	location, err := Parse(value)
+	if err != nil {
+		return 0, err
+	}
+	return location.UnixMilli(), nil
+}
+
+// ParseDate 字符串转换为纳秒
+func ParseDate(value string) (int64, error) {
+	location, err := Parse(value)
+	if err != nil {
+		return 0, err
+	}
+	return location.UnixNano(), nil
 }
 
 // SplitTime 分割时间字符串，返回日期和时间
 // 参数：仅限修改日期分隔符，如果不修改，则使用默认分隔符，时间分隔符默认为：":"
 // value：时间字符串
 // format：自定义格式：yyyy-MM-dd HH:mm:ss | 2022年1月1日 12:00:01
+// 例：
+// 有时候，部分场景下不需要 "日" ，所以可以在 format 里不填写 "日"，我们是根据 format 格式化：2022年1月1 12:00:01
 func SplitTime(value, format string) string {
 	// 正则获取自定义格式化分隔符
 	reg, _ := regexp.MatchString("([0-9\a-zA-Z]{4}([\\.\\-/|年月\\s]{1,3}[0-9\a-zA-Z]{1,2}){2}日?(\\s?\\d{2}:\\d{2}(:\\d{2})?)?)|(\\d{1,2}\\s?(分钟|小时|天)前)", format)
@@ -81,7 +84,7 @@ func SplitTime(value, format string) string {
 	var replaceDateTime string
 	// 日期处理
 	s := strings.Split(value, separatorValue)
-	// log.Println("s:", s[0], "----", s[1], s[2][:1], "--", s[2][2:])
+	log.Println("s:", s[0], "----", s[1], s[2][:1], "--", s[2][2:])
 	// 日期不足两位，前面补0
 	i, _ := strconv.Atoi(s[1])
 	i2, _ := strconv.Atoi(s[2][:1])
@@ -109,7 +112,11 @@ func SplitTime(value, format string) string {
 	}
 
 	if separatorFormat == "年" || separatorFormat == "月" || separatorFormat == "日" {
-		replaceDateTime = s[0] + "年" + s[1] + "月" + s[2] + "日" + " " + s2[0][len(s2[0])-2:] + ":" + s2[1] + ":" + s2[2]
+		replaceDateTime = s[0] + "年" + s[1] + "月" + s[2]
+		if strings.Index(format, "日") != -1 {
+			replaceDateTime += "日"
+		}
+		replaceDateTime += " " + s2[0][len(s2[0])-2:] + ":" + s2[1] + ":" + s2[2]
 	} else {
 		replaceDateTime = s[0] + separatorFormat + s[1] + separatorFormat + s[2] + " " + s2[0][len(s2[0])-2:] + ":" + s2[1] + ":" + s2[2]
 	}
