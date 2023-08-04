@@ -1,3 +1,3 @@
-module github.com/OrangePeel-2019/go-bytool
+module github.com/orange-juzipi/go-bytool
 
 go 1.20
