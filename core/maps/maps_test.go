@@ -2,7 +2,7 @@ package maps_test
 
 import (
 	"fmt"
-	"github.com/OrangePeel-2019/go-bytool/core/maps"
+	"github.com/orange-juzipi/go-bytool/core/maps"
 	"testing"
 )
 

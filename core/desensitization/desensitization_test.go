@@ -2,7 +2,7 @@ package desensitization_test
 
 import (
 	"fmt"
-	"github.com/OrangePeel-2019/go-bytool/core/desensitization"
+	"github.com/orange-juzipi/go-bytool/core/desensitization"
 	"testing"
 )
 

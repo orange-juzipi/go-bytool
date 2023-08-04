@@ -2,7 +2,7 @@ package utils_test
 
 import (
 	"fmt"
-	"github.com/OrangePeel-2019/go-bytool/core/utils"
+	"github.com/orange-juzipi/go-bytool/core/utils"
 	"testing"
 )
 

@@ -9,8 +9,8 @@ package utils
 
 import (
 	"errors"
-	"github.com/OrangePeel-2019/go-bytool/core/dates"
-	"github.com/OrangePeel-2019/go-bytool/pkg"
+	"github.com/orange-juzipi/go-bytool/core/dates"
+	"github.com/orange-juzipi/go-bytool/pkg"
 	"strconv"
 	"time"
 )
