@@ -11,10 +11,10 @@ import (
 )
 
 // SliceToMap 切片转map
-func SliceToMap(slice interface{}) any {
+func SliceToMap(slice any) any {
 	reflectSlice := reflect.ValueOf(slice)
 
-	refMap := make(map[interface{}]interface{}, reflectSlice.Len()+1)
+	refMap := make(map[any]any, reflectSlice.Len()+1)
 	if reflectSlice.Kind() == reflect.Slice {
 		for i := 0; i < reflectSlice.Len(); i++ {
 			// 往map里添加元素
