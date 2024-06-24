@@ -46,6 +46,8 @@ go-bytool是一个简便的工具库，它能让你在Go里降低学习API的成
     - 随机英文
     - 随机小写字母
     - 随机大写字母
+- 增强 Go 内置包
+    - [x] cmp
 - cron定时
 - 第三方：邮件、二维码、图形验证码（captcha）、Emoji等
 - 日志
@@ -59,6 +61,7 @@ go-bytool是一个简便的工具库，它能让你在Go里降低学习API的成
 ```
 .
 ├── core                    // 核心包
+│   ├── cmp                 // 增强 cmp 包
 │   ├── convert             // 类型转换工具包
 │   ├── dates               // 日期时间工具包
 │   ├── desensitization     // 信息脱敏工具包
