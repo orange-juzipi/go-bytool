@@ -1,5 +1,5 @@
 module github.com/orange-juzipi/go-bytool
 
-go 1.20
+go 1.22
 
-require golang.org/x/crypto v0.12.0 // indirect
+require golang.org/x/crypto v0.24.0

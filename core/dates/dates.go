@@ -71,7 +71,7 @@ func ParseDate(value string) (int64, error) {
 // 有时候，部分场景下不需要 "日" ，所以可以在 format 里不填写 "日"，我们是根据 format 格式化：2022年1月1 12:00:01
 func SplitTime(value, format string) string {
 	// 正则获取自定义格式化分隔符
-	reg, _ := regexp.MatchString("([0-9\a-zA-Z]{4}([\\.\\-/|年月\\s]{1,3}[0-9\a-zA-Z]{1,2}){2}日?(\\s?\\d{2}:\\d{2}(:\\d{2})?)?)|(\\d{1,2}\\s?(分钟|小时|天)前)", format)
+	reg, _ := regexp.MatchString("([0-9\a-zA-Z]{4}([.\\-/|年月\\s]{1,3}[0-9\a-zA-Z]{1,2}){2}日?(\\s?\\d{2}:\\d{2}(:\\d{2})?)?)|(\\d{1,2}\\s?(分钟|小时|天)前)", format)
 	if !reg {
 		return value
 	}

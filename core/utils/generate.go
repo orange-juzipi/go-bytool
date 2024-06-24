@@ -6,12 +6,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"golang.org/x/crypto/bcrypt"
-	"math/rand"
+	"math/rand/v2"
 	"strings"
-	"time"
 )
-
-const SaltPassword = "ag7i5hI4sF2HJ3ihs3iioIh09"
 
 // GeneratePassword generate password
 func GeneratePassword(str, salt string) string {
@@ -39,11 +36,9 @@ func CheckPasswordHash(password, hash string) bool {
 
 // GenerateRand 生成随机字符串
 func GenerateRand(num uint) string {
-	const str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	var builder strings.Builder
 	for i := 0; i < int(num); i++ {
-		builder.WriteByte(str[r.Intn(len(str))])
+		builder.WriteByte(randStr[rand.IntN(len(randStr))])
 	}
 
 	return builder.String()

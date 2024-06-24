@@ -2,10 +2,13 @@ package utils
 
 import "testing"
 
-const password = "123456"
+const (
+	password     = "123456"
+	saltPassword = "ag7i5hI4sF2HJ3ihs3iioIh09"
+)
 
 func TestGeneratePassword(t *testing.T) {
-	generatePassword := GeneratePassword(password, SaltPassword)
+	generatePassword := GeneratePassword(password, saltPassword)
 	t.Log(generatePassword)
 }
 func TestGenerateHashPassword(t *testing.T) {
